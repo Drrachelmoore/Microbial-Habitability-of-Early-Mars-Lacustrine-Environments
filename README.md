@@ -12,18 +12,28 @@ The purpose of this repository is to allow for the reproduction of our results u
 ## Reading and simulating a model
 The models provided in the manuscript both end in `.xml` and are in Systems Biology Markup Language ([SBML](https://sbml.org/)) format. 
 
-### To read in the model and run a basic simulation:
-
+**To read in the model and run a basic simulation:**
+```
 import cobra
 
 model = cobra.io.read_sbml_model("path\\to\\model.xml")
-
 solution = model.optimize()
 
-\# Will print only the solution to the objective function
-
+# Will print only the solution to the objective function
 print(solution)
 
-\# Will print more of a summary including the solution
-
+# Will print more of a summary including the solution
 print(model.summary(solution = solution))
+```
+
+**To generate the community model grwoth results in Table 2:**
+```
+import cobra
+
+model = cobra.io.read_sbml_model("path\\to\\model\\supplemental_file_1.xml")
+
+# Set media to upper bounds of Gale Lake with light
+
+```
+
+
