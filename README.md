@@ -9,7 +9,7 @@ The purpose of this repository is to allow for the reproduction of our results u
 * The model(s)
 
 
-## Reading and simulating a model
+## General reading and simulating a model
 The models provided in the manuscript both end in `.xml` and are in Systems Biology Markup Language ([SBML](https://sbml.org/)) format. 
 
 **To read in the model and run a basic simulation:**
