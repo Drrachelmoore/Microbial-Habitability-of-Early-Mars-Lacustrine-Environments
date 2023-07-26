@@ -128,7 +128,7 @@ Table 3. Modeled interactions between community members*.
 | Fe3+  |  6.99 / 0.052 (rxn37614_2)  | 6.99 / -0.052 (FERCYT) |
 | Citrate  |  -2.81 / 63.88 (rxn05211)  |  2.81 / -63.88 (rxn05211)  |
 | CO2 |  -3.21 / -95.74 (rxn05467) |  0.91 / 55.21 (rxn05467)  |
-* Fluxes are shown in mmol gDW-1 h-1 for low / high bounds of media inputs with light. Negative values indicate metabolite consumption, whereas positive values indicate production.
+\* Fluxes are shown in mmol gDW-1 h-1 for low / high bounds of media inputs with light. Negative values indicate metabolite consumption, whereas positive values indicate production.
 
 
 **To reproduce the modeled interactions between community members in Table 3:**
