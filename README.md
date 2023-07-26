@@ -26,7 +26,7 @@ print(solution)
 print(model.summary(solution = solution))
 ```
 
-**To generate the community model grwoth results in Table 2:**
+**To generate the community model growth results in Table 2:**
 ```
 import cobra
 
