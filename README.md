@@ -26,6 +26,17 @@ print(solution)
 print(model.summary(solution = solution))
 ```
 
+### Table 2 from manuscript
+
+|Electron donor/acceptors | Input carbon source |Light?  | Model | Speci fic growth Rate (h-1) |
+| ------------- | ------------- |------------- | ------------- |------------- |
+| H2 / Fe | CO2  | NA  | _G. sulfurreducens_  | 0.001–0.005  |
+| Fe / CO2 |  CO2  | - | _R. palustris_ | 0.00–0.00 |
+| Fe / CO2  |  CO2  | +  | _R. palustris_  | 0.001–0.032  |
+| H2, Fe / Fe, CO2  |  CO2  | +  | Community  | 0.001–1.031  |
+| H2, Fe / Fe, CO2 |  CO2 | - | Community | 0.00–1.012 |
+
+
 **To generate the community model growth results in Table 2:**
 ```
 import cobra
