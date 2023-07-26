@@ -110,6 +110,6 @@ print(sol)
 #<Solution 0.000 at 0x1da99d90ca0>
 ```
 
-###To reproduce the modeled interactions between community members in Table 3:
+### To reproduce the modeled interactions between community members in Table 3:
 ```
 ```
