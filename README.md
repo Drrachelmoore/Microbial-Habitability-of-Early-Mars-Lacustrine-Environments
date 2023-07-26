@@ -13,11 +13,10 @@ The purpose of this repository is to allow for the reproduction of our results u
 The models provided in the manuscript both end in `.xml` and are in Systems Biology Markup Language ([SBML](https://sbml.org/)) format. 
 
 ### To read in the model and run a basic simulation:
-
 import cobra
 model = cobra.io.read_sbml_model("path\\to\\model.xml")
 solution = model.optimize()
-### Will print only the solution to the objective function
+\# Will print only the solution to the objective function
 print(solution)
-### Will print more of a summary including the solution
+\# Will print more of a summary including the solution
 print(model.summary(solution = solution))
