@@ -89,6 +89,25 @@ sol = model.optimize()
 print(sol)
 # prints <Solution 0.001 at 0x17fd603ce80>
 # 0.001 h^-1
+
+
+# Now simulate without light
+#First, with upper bounds
+
+mediumupper["EX_photon_e"] = 0.0
+model.medium = mediumupper
+sol = model.optimize()
+print(sol)
+
+# Then, with lower bounds
+mediumlower["EX_photon_e"] = 0.0
+model.medium = mediumlower
+sol = model.optimize()
+print(sol)
+
+# prints 
+#<Solution 1.012 at 0x1da9a099780>
+#<Solution 0.000 at 0x1da99d90ca0>
 ```
 
 
