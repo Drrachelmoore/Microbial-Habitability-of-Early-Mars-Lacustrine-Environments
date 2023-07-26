@@ -35,6 +35,7 @@ model = cobra.io.read_sbml_model("path\\to\\model\\supplemental_file_1.xml")
 # Set media to upper bounds of Gale Lake with light
 mediumupper = {
     'EX_cpd29674_e0': 45,
+    'EX_cpd00063_e0': 45,
     'EX_cpd00099_e0': 250,
     'EX_cpd00149_e0': 0.0059,
     'EX_cpd00011_e0': 41,
@@ -53,6 +54,7 @@ mediumupper = {
     'EX_cpd00034_e0': 0.0001,
     'EX_photon_e': 100.0
 }
+
 
 model.medium = mediumupper
 sol = model.optimize()
@@ -62,26 +64,26 @@ print(sol)
 
 # Set media to lower bounds of Gale Lake with light
 mediumlower = {
-    'EX_cpd29674_e0': 45,
-    'EX_cpd00099_e0': 250,
-    'EX_cpd00149_e0': 0.0059,
-    'EX_cpd00011_e0': 41,
+    'EX_cpd29674_e0': 24,
+    'EX_cpd00063_e0': 24,
+    'EX_cpd00099_e0': 110,
+    'EX_cpd00149_e0': 0.001,
+    'EX_cpd00011_e0': 2.3,
     'EX_cpd00058_e0': 0.0001,
-    'EX_cpd10515_e0': 5.8,
+    'EX_cpd10515_e0': 0.12,
     'EX_cpd00067_e0': 0.001,
     'EX_cpd11640_e0': 12,
     'EX_cpd00001_e0': 1000,
-    'EX_cpd00205_e0': 4.4,
-    'EX_cpd00254_e0': 60,
-    'EX_cpd00030_e0': 0.01,
+    'EX_cpd00205_e0': 1.4,
+    'EX_cpd00254_e0': 35,
+    'EX_cpd00030_e0': 0.00053,
     'EX_cpd00528_e0': 13,
-    'EX_cpd00971_e0': 120,
-    'EX_cpd00009_e0': 1.8,
-    'EX_cpd00048_e0': 72,
+    'EX_cpd00971_e0': 94,
+    'EX_cpd00009_e0': 0.00052,
+    'EX_cpd00048_e0': 44,
     'EX_cpd00034_e0': 0.0001,
     'EX_photon_e': 100.0
 }
-
 model.medium = mediumlower
 sol = model.optimize()
 print(sol)
