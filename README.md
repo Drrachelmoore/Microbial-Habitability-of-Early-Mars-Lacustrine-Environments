@@ -26,16 +26,15 @@ print(solution)
 print(model.summary(solution = solution))
 ```
 
-### Table 2 from manuscript
-
-|Electron donor/acceptors | Input carbon source |Light?  | Model | Speci fic growth Rate (h-1) |
+### Table 2 from the manuscript
+Table 2. Specific growth rates of the genome-based models under the specified conditions and constrained to either the low or high bounds of medium metabolite flux.
+|Electron donor/acceptors | Input carbon source |Light?  | Model | Specific growth Rate (h-1) |
 | ------------- | ------------- |------------- | ------------- |------------- |
 | H2 / Fe | CO2  | NA  | _G. sulfurreducens_  | 0.001–0.005  |
 | Fe / CO2 |  CO2  | - | _R. palustris_ | 0.00–0.00 |
 | Fe / CO2  |  CO2  | +  | _R. palustris_  | 0.001–0.032  |
 | H2, Fe / Fe, CO2  |  CO2  | +  | Community  | 0.001–1.031  |
 | H2, Fe / Fe, CO2 |  CO2 | - | Community | 0.00–1.012 |
-
 
 **To generate the community model growth results in Table 2:**
 ```
@@ -120,6 +119,17 @@ print(sol)
 #<Solution 1.012 at 0x1da9a099780>
 #<Solution 0.000 at 0x1da99d90ca0>
 ```
+### Table 3 from the manuscript
+Table 3. Modeled interactions between community members*. 
+|Metabolite| R. palustris (reaction ID) |G. sulfurreducens (reaction ID) | 
+| ------------- | ------------- |------------- | 
+| Acetate | -6.83 / -144.4 (rxn05488)  | 6.83 / 144.4 (rxn05488)  | 
+| Fe2+ |  -6.99/ -0.052 (rxn37614_2)  | 6.99 / 0.052 (FERCYT) | 
+| Fe3+  |  6.99 / 0.052 (rxn37614_2)  | 6.99 / -0.052 (FERCYT) |
+| Citrate  |  -2.81 / 63.88 (rxn05211)  |  2.81 / -63.88 (rxn05211)  |
+| CO2 |  -3.21 / -95.74 (rxn05467) |  0.91 / 55.21 (rxn05467)  |
+* Fluxes are shown in mmol gDW-1 h-1 for low / high bounds of media inputs with light. Negative values indicate metabolite consumption, whereas positive values indicate production.
+
 
 **To reproduce the modeled interactions between community members in Table 3:**
 ```
