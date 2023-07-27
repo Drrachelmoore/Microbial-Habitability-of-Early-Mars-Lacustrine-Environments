@@ -26,7 +26,7 @@ print(solution)
 print(model.summary(solution = solution))
 ```
 
-### Table 2 from the manuscript
+## Table 2 from the manuscript
 Table 2. Specific growth rates of the genome-based models under the specified conditions and constrained to either the low or high bounds of medium metabolite flux.
 |Electron donor/acceptors | Input carbon source |Light?  | Model | Specific growth Rate (h-1) |
 | ------------- | ------------- |------------- | ------------- |------------- |
@@ -36,7 +36,7 @@ Table 2. Specific growth rates of the genome-based models under the specified co
 | H2, Fe / Fe, CO2  |  CO2  | +  | Community  | 0.001–1.031  |
 | H2, Fe / Fe, CO2 |  CO2 | - | Community | 0.00–1.012 |
 
-**To generate the community model growth results in Table 2:**
+### To generate the community model growth results in Table 2:
 ```
 import cobra
 
@@ -119,7 +119,7 @@ print(sol)
 #<Solution 1.012 at 0x1da9a099780>
 #<Solution 0.000 at 0x1da99d90ca0>
 ```
-### Table 3 from the manuscript
+## Table 3 from the manuscript
 Table 3. Modeled interactions between community members. 
 |Metabolite| R. palustris (reaction ID) |G. sulfurreducens (reaction ID) | 
 | ------------- | ------------- |------------- | 
@@ -131,7 +131,7 @@ Table 3. Modeled interactions between community members.
 * Fluxes are shown in mmol gDW-1 h-1 for low / high bounds of media inputs with light. Negative values indicate metabolite consumption, whereas positive values indicate production.
 
 
-**To reproduce the modeled interactions between community members in Table 3:**
+### To reproduce the modeled interactions between community members in Table 3:
 ```
 # Follow the same instructions above to read in model and media bounds
 
@@ -166,5 +166,20 @@ print("Citrate lower"")
 print(model.metabolites.get_by_id("cpd00137_e0").summary(solution = sol))
 print("CO2 lower"")
 print(model.metabolites.get_by_id("cpd00011_e0").summary(solution = sol))
+
+```
+
+## Dynamic flux balance analysis 
+```
+
+```
+
+## Lipid biomarker production
+```
+
+```
+
+## Diurnal community model
+```
 
 ```
