@@ -121,7 +121,7 @@ print(sol)
 ```
 ## Table 3 from the manuscript
 Table 3. Modeled interactions between community members. 
-|Metabolite| R. palustris (reaction ID) |G. sulfurreducens (reaction ID) | 
+|Metabolite| _R. palustris_ (reaction ID) |_G. sulfurreducens_ (reaction ID) | 
 | ------------- | ------------- |------------- | 
 | Acetate | -6.83 / -144.4 (rxn05488)  | 6.83 / 144.4 (rxn05488)  | 
 | Fe2+ |  -6.99/ -0.052 (rxn37614_2)  | 6.99 / 0.052 (FERCYT) | 
