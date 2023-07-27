@@ -133,4 +133,38 @@ Table 3. Modeled interactions between community members.
 
 **To reproduce the modeled interactions between community members in Table 3:**
 ```
+# Follow the same instructions above to read in model and media bounds
+
+model.medium = mediumupper #setting media to upper bounds
+sol = model.optimize()
+
+#print(sol)
+#print(model.summary(solution = sol))
+print("Acetate upper")
+#print(model.metabolites.get_by_id("cpd00029_e0").summary(solution = sol))
+print("Fe2+  upper")
+print(model.metabolites.get_by_id("cpd10515_e0").summary(solution = sol))
+print("Fe3+  upper")
+print(model.metabolites.get_by_id("cpd10516_e0").summary(solution = sol))
+print("Citrate  upper")
+print(model.metabolites.get_by_id("cpd00137_e0").summary(solution = sol))
+print("CO2  upper")
+print(model.metabolites.get_by_id("cpd00011_e0").summary(solution = sol))
+
+model.medium = mediumlower #setting media to lower bounds
+sol = model.optimize()
+
+#print(sol)
+#print(model.summary(solution = sol))
+print("Acetate lower")
+#print(model.metabolites.get_by_id("cpd00029_e0").summary(solution = sol))
+print("Fe2+ lower"")
+print(model.metabolites.get_by_id("cpd10515_e0").summary(solution = sol))
+print("Fe3+ lower"")
+print(model.metabolites.get_by_id("cpd10516_e0").summary(solution = sol))
+print("Citrate lower"")
+print(model.metabolites.get_by_id("cpd00137_e0").summary(solution = sol))
+print("CO2 lower"")
+print(model.metabolites.get_by_id("cpd00011_e0").summary(solution = sol))
+
 ```
