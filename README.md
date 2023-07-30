@@ -361,7 +361,7 @@ model.reactions.get_by_id("EX_cpd00528_e0").upper_bound = 1
 model.objective = {model.reactions.rxn01466_c0: 1}
 
 sol = model.optimize()
-#print("farnesyl farnesyl diphosphate precurosor")
+#print("farnesyl diphosphate precurosor")
 print(sol)
 
 # prints
