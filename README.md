@@ -14,6 +14,11 @@ The models provided in the manuscript both end in `.xml` and are in Systems Biol
 
 **To read in the model and run a basic simulation:**
 ```
+# Note for all simulations:
+# c1 is the cytoplasm of G. sulfurreducens 
+# c0 is the cytoplasm of R. palustris 
+# e0 is the external environment
+
 import cobra
 
 model = cobra.io.read_sbml_model("path\\to\\model.xml")
@@ -24,6 +29,44 @@ print(solution)
 
 # Will print more of a summary including the solution
 print(model.summary(solution = solution))
+```
+## Investigating the reverse Krebs cycle in _G. sulfurreducens_
+### The following code will allow you to simulate the growth of the community model on upper bound media. It will print out the production and consumption reactions for all of the key metabolites involved in the Krebs cycle for _G. sulfurreducens_.
+```
+import cobra
+model = cobra.io.read_sbml_model("path\\to\\model\\supplemental_file_1.xml")
+sol = model.optimize()
+
+print("oxaloacetate")
+print(model.metabolites.get_by_id("cpd00032_c1").summary(solution = sol))
+
+print("malate")
+print(model.metabolites.get_by_id("cpd00130_c1").summary(solution = sol))
+
+print("fumarate")
+print(model.metabolites.get_by_id("cpd00106_c1").summary(solution = sol))
+# Note that reaction FRD5 is a synonym for rxn10619
+
+print("succinate")
+print(model.metabolites.get_by_id("cpd00036_c1").summary(solution = sol))
+
+print("succinyl-coa")
+print(model.metabolites.get_by_id("cpd00078_c1").summary(solution = sol))
+
+print("acetyl-coa")
+print(model.metabolites.get_by_id("cpd00022_c1").summary(solution = sol))
+
+print("pyruvate")
+print(model.metabolites.get_by_id("cpd00020_c1").summary(solution = sol))
+
+print("Acetate")
+print(model.metabolites.get_by_id("cpd00029_c1").summary(solution = sol))
+
+print("2-oxoglutarate")
+print(model.metabolites.get_by_id("cpd00024_c1").summary(solution = sol))
+
+print("isocitrate")
+print(model.metabolites.get_by_id("cpd00260_c1").summary(solution = sol))
 ```
 
 ## Table 2 from the manuscript
