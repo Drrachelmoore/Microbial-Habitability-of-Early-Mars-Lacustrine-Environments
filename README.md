@@ -216,7 +216,87 @@ print(model.metabolites.get_by_id("cpd00011_e0").summary(solution = sol))
 
 ## Dynamic flux balance analysis 
 ```
+import numpy as np
+from scipy.integrate import solve_ivp
+import matplotlib.pyplot as plt
+from tqdm import tqdm
+import cobra
 
+model = cobra.io.read_sbml_model("path\\to\\model\\supplemental_file_1.xml")
+#Set media to upper or lower as above
+
+def add_dynamic_bounds(model3, y):
+   """Use external concentrations to bound the uptake flux of N2"""
+   biomass, Fe = y  # expand the boundary species
+   N2_max_import = -0.2 * Fe/(0.1 + Fe) ### MONOD EQUATION
+   model3.reactions.EX_cpd10515_e0.lower_bound = N2_max_import
+
+def dynamic_system(t, y):
+   """Calculate the time derivative of external species."""
+
+   biomass, Fe = y  # expand the boundary species
+
+   # Calculate the specific exchanges fluxes at the given external concen
+   with model:
+       add_dynamic_bounds(model, y)
+
+       cobra.util.add_lp_feasibility(model)
+       feasibility = cobra.util.fix_objective_as_constraint(model)
+       lex_constraints = cobra.util.add_lexicographic_constraints(
+           model, ['bio1_biomass', 'EX_cpd00528_e0'], ['max', 'max'])
+
+   # Since the calculated fluxes are specific rates, we multiply them by
+   # biomass concentration to get the bulk exchange rates.
+   fluxes = lex_constraints.values
+   fluxes *= biomass
+
+   # This implementation is **not** efficient, so I display the current
+   # simulation time using a progress bar.
+   if dynamic_system.pbar is not None:
+       dynamic_system.pbar.update(1)
+       dynamic_system.pbar.set_description('t = {:.3f}'.format(t))
+
+   return fluxes
+
+dynamic_system.pbar = None
+
+
+def infeasible_event(t, y):
+   with model:
+
+       add_dynamic_bounds(model, y)
+
+       cobra.util.add_lp_feasibility(model)
+       feasibility = cobra.util.fix_objective_as_constraint(model)
+
+   return feasibility - infeasible_event.epsilon
+
+infeasible_event.epsilon = 1E-6
+infeasible_event.direction = 1
+infeasible_event.terminal = True
+
+ts = np.linspace(0, 1, 100)  # Desired integration resolution and interva
+y0 = [0.1, 13]
+
+with tqdm() as pbar:
+   dynamic_system.pbar = pbar
+   sol = solve_ivp(
+       fun=dynamic_system,
+       events=[infeasible_event],
+       t_span=(ts.min(), ts.max()),
+       y0=y0,
+       t_eval=ts,
+       rtol=1e-6,
+       atol=1e-8,
+       method='BDF'
+   )
+print(sol)
+
+ax = plt.subplot(111)
+ax.plot(sol.t, sol.y.T[:, 0], 'k-')
+ax2 = plt.twinx(ax)
+ax2.plot(sol.t, sol.y.T[:, 1], 'r--')
+plt.show()
 ```
 
 ## Lipid biomarker production
