@@ -353,7 +353,19 @@ plt.show()
 
 ## Lipid biomarker production
 ```
+# Set N2 
+model.reactions.get_by_id("EX_cpd00528_e0").lower_bound = -1
+model.reactions.get_by_id("EX_cpd00528_e0").upper_bound = 1
 
+# Set model objective for max prediction
+model.objective = {model.reactions.rxn01466_c0: 1}
+
+sol = model.optimize()
+#print("farnesyl farnesyl diphosphate precurosor")
+print(sol)
+
+# prints
+# <Solution 0.001 at 0x15cdf24ffd0>
 ```
 
 ## Diurnal community model
