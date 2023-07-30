@@ -168,11 +168,11 @@ print(sol)
 Table 3. Modeled interactions between community members. 
 |Metabolite| _R. palustris_ (reaction ID) |_G. sulfurreducens_ (reaction ID) | 
 | ------------- | ------------- |------------- | 
-| Acetate | -6.83 / -144.4 (rxn05488)  | 6.83 / 144.4 (rxn05488)  | 
-| Fe2+ |  -6.99/ -0.052 (rxn37614_2)  | 6.99 / 0.052 (FERCYT) | 
-| Fe3+  |  6.99 / 0.052 (rxn37614_2)  | 6.99 / -0.052 (FERCYT) |
-| Citrate  |  -2.81 / 63.88 (rxn05211)  |  2.81 / -63.88 (rxn05211)  |
-| CO2 |  -3.21 / -95.74 (rxn05467) |  0.91 / 55.21 (rxn05467)  |
+| Acetate | 0 / -94.4 (rxn05488)  | 0 / 94.4 (rxn05488)  | 
+| Fe2+ |  0 / -29.0 (rxn37614_2)  | 0 / 23.2 (FERCYT) | 
+| Fe3+  |  0 / 29.0 (rxn37614_2)  | 0 / -23.2 (FERCYT) |
+| Citrate  |  -0.0020 / 52.7 (rxn05211)  |  0.0029 / -52.7 (rxn05211)  |
+| CO2 |  0.016 / -128.3 (rxn05467) |  -0.018 / 88.23 (rxn05467)  |
 * Fluxes are shown in mmol gDW-1 h-1 for low / high bounds of media inputs with light. Negative values indicate metabolite consumption, whereas positive values indicate production.
 
 
