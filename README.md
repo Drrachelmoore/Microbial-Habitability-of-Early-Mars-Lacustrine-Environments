@@ -380,7 +380,6 @@ mediumhigh = {
     'EX_cpd00011_e0': 41,
     'EX_cpd00058_e0': 0.0001,
     'EX_cpd10515_e0': 5.8,
-    #'EX_cpd10516_e0': 5.8,
     'EX_cpd00067_e0': 0.001,
     'EX_cpd11640_e0': 12,
     'EX_cpd00001_e0': 1000,
@@ -391,9 +390,7 @@ mediumhigh = {
     'EX_cpd00971_e0': 120,
     'EX_cpd00009_e0': 1.8,
     'EX_cpd00048_e0': 72,
-    'EX_cpd00034_e0': 0.0001#,
-    #'EX_cpd00023_e0':  0.1#,
-    #'EX_cpd08210_e0':  1
+    'EX_cpd00034_e0': 0.0001
 }
 model.reactions.get_by_id("EX_photon_e0").lower_bound = -100
 model.reactions.get_by_id("EX_photon_e0").upper_bound = 100
