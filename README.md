@@ -397,6 +397,8 @@ model.reactions.get_by_id("EX_photon_e0").upper_bound = 100
 
 sol = model.optimize()
 print(sol)
+# prints
+# <Solution 2.062 at 0x1c0f3df2e00>
 
 #### The for loop below will save a list of all reactions, reaction IDs,
 #### and their fluxes to a csv. There you can find transfer reaction fluxes.
