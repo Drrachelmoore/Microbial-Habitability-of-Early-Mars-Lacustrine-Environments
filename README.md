@@ -279,16 +279,16 @@ sol = model.optimize()
 
 def add_dynamic_bounds(model, y):
    """Use external concentrations to bound the uptake flux of N2"""
-   biomass, Fe = y  # expand the boundary species
-   N2_max_import = -0.2 * Fe/(0.1 + Fe) ### MONOD EQUATION
+   biomass, N2 = y  # expand the boundary species
+   N2_max_import = -13 * N2/(6.5 + N2) ### MONOD EQUATION
    model.reactions.EX_cpd10515_e0.lower_bound = N2_max_import
 
 def dynamic_system(t, y):
    """Calculate the time derivative of external species."""
 
-   biomass, Fe = y  # expand the boundary species
+   biomass, N2 = y  # expand the boundary species
 
-   # Calculate the specific exchanges fluxes at the given external concen
+   # Calculate the specific exchanges fluxes at the given external concentration
    with model:
        add_dynamic_bounds(model, y)
 
@@ -327,7 +327,7 @@ infeasible_event.epsilon = 1E-6
 infeasible_event.direction = 1
 infeasible_event.terminal = True
 
-ts = np.linspace(0, 1, 100)  # Desired integration resolution and interva
+ts = np.linspace(0, 1, 100)  # Desired integration resolution and interval
 y0 = [0.1, 13]
 
 with tqdm() as pbar:
