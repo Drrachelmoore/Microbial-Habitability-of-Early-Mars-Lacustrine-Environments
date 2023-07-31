@@ -370,5 +370,77 @@ print(sol)
 
 ## Diurnal community model
 ```
+from pandas import Series
+
+mediumhigh = {
+    'EX_cpd29674_e0': 45,
+    'EX_cpd00063_e0': 45,
+    'EX_cpd00099_e0': 250,
+    'EX_cpd00149_e0': 0.0059,
+    'EX_cpd00011_e0': 41,
+    'EX_cpd00058_e0': 0.0001,
+    'EX_cpd10515_e0': 5.8,
+    #'EX_cpd10516_e0': 5.8,
+    'EX_cpd00067_e0': 0.001,
+    'EX_cpd11640_e0': 12,
+    'EX_cpd00001_e0': 1000,
+    'EX_cpd00205_e0': 4.4,
+    'EX_cpd00254_e0': 60,
+    'EX_cpd00030_e0': 0.01,
+    'EX_cpd00528_e0': 13,
+    'EX_cpd00971_e0': 120,
+    'EX_cpd00009_e0': 1.8,
+    'EX_cpd00048_e0': 72,
+    'EX_cpd00034_e0': 0.0001#,
+    #'EX_cpd00023_e0':  0.1#,
+    #'EX_cpd08210_e0':  1
+}
+model.reactions.get_by_id("EX_photon_e0").lower_bound = -100
+model.reactions.get_by_id("EX_photon_e0").upper_bound = 100
+
+sol = model.optimize()
+print(sol)
+
+#### The for loop below will save a list of all reactions, reaction IDs,
+#### and their fluxes to a csv. There you can find transfer reaction fluxes.
+a = []
+for reaction in model.reactions[:]:
+    model.medium = mediumhigh
+    model.reactions.get_by_id("EX_photon_e0").lower_bound = -100
+    model.reactions.get_by_id("EX_photon_e0").upper_bound = 100
+    model.optimize()
+    rxn = (reaction.id, reaction.flux, reaction)
+    a.append(rxn)
+df = pandas.DataFrame(a)
+
+## File is archived as reactions_GALE_DIURNAL_2023 on GitHub
+df.to_csv(r"C:\\where\\you\\wish\\to\\save\\\\all_reactions.csv", index=False)
+
+#### The for loop below will save a csv of all metabolites and their fluxes in light or dark
+#### c0 is R. pal in light
+#### c00 is R. pal in dark
+#### c1 is G. sulf in light
+#### c11 is G. sulf in dark
+
+def metabolite_flux_balance(metabolite, solution):
+    rxn_ids = list()
+    adj_flux = list()
+    for rxn in metabolite.reactions:
+        coeff = rxn.get_coefficient(metabolite)
+        rxn_ids.append(rxn.id)
+        adj_flux.append(coeff * solution.fluxes[rxn.id])
+    return Series(data=adj_flux, index=rxn_ids, dtype=float, name="reaction")
+    
+a = []
+for met in model.metabolites:
+    sol = metabolite_flux_balance(met, solution)
+    flux = sol[sol > 0.0].sum()
+    met = (met.id, flux)
+    a.append(met)
+df = pandas.DataFrame(a)
+
+## File is archived as metabolites_GALE_DIURNAL_2023 on GitHub
+df.to_csv(r"C:\\where\\you\\wish\\to\\save\\fluxes_03_02.csv", index=False)
+
 
 ```
