@@ -371,6 +371,9 @@ print(sol)
 ## Diurnal community model
 ```
 from pandas import Series
+import cobra
+
+model = cobra.io.read_sbml_model("path\\to\\model\\supplemental_file_2.xml") # Important to use diurnal model here
 
 mediumhigh = {
     'EX_cpd29674_e0': 45,
