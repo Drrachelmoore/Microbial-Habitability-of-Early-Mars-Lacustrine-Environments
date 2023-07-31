@@ -442,7 +442,7 @@ for met in model.metabolites:
 df = pandas.DataFrame(a)
 
 ## File is archived as metabolites_GALE_DIURNAL_2023 on GitHub
-df.to_csv(r"C:\\where\\you\\wish\\to\\save\\fluxes_03_02.csv", index=False)
+df.to_csv(r"C:\\where\\you\\wish\\to\\save\\all_metabolites.csv", index=False)
 
 
 ```
