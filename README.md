@@ -404,7 +404,7 @@ print(sol)
 # prints
 # <Solution 2.062 at 0x1c0f3df2e00>
 
-# print growth rate of just G. sulfurreducins in community
+# print growth rate of just R. palustris in community
 print(model.reactions.get_by_id("bio11_biomass").summary(solution = sol))
 # prints
 # bio11_biomass
@@ -428,7 +428,7 @@ print(model.reactions.get_by_id("bio11_biomass").summary(solution = sol))
 #Bounds: 0.0, 100000.0
 #Flux: 0.06459
 
-# print growth rate of just R. palustris in community
+# print growth rate of just G. sulfurreducins in community
 print(model.reactions.get_by_id("bio1_biomass").summary(solution = sol))
 
 # prints
