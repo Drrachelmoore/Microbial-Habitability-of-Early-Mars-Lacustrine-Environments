@@ -451,6 +451,8 @@ print(model.reactions.get_by_id("bio1_biomass").summary(solution = sol))
 
 ```
 ### The code below will allow you to save a lists of all metabolites and reactions to examine transfer between light and dark (or vice versa)
+
+### The method in which these data were compiled is archived within the Diurnal_community_model_results folder on Github (Diurnal_fluxes_all_metabolites_and_transfer_reactions.xlsx)
 ```
 from pandas import Series
 import cobra
@@ -492,7 +494,7 @@ for reaction in model.reactions[:]:
     a.append(rxn)
 df = pandas.DataFrame(a)
 
-## File is archived as reactions_GALE_DIURNAL_2023 on GitHub
+## File is archived as reactions_GALE_DIURNAL_2023 on GitHub under Diurnal_community_model_results
 df.to_csv(r"C:\\where\\you\\wish\\to\\save\\\\all_reactions.csv", index=False)
 
 #### The for loop below will save a csv of all metabolites and their fluxes in light or dark
@@ -518,8 +520,7 @@ for met in model.metabolites:
     a.append(met)
 df = pandas.DataFrame(a)
 
-## File is archived as metabolites_GALE_DIURNAL_2023 on GitHub
+## File is archived as metabolites_GALE_DIURNAL_2023 on GitHub under Diurnal_community_model_results
 df.to_csv(r"C:\\where\\you\\wish\\to\\save\\all_metabolites.csv", index=False)
-
 
 ```
