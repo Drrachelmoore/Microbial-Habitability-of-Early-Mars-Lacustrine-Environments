@@ -183,10 +183,8 @@ Table 3. Modeled interactions between community members.
 model.medium = mediumupper #setting media to upper bounds
 sol = model.optimize()
 
-#print(sol)
-#print(model.summary(solution = sol))
 print("Acetate upper")
-#print(model.metabolites.get_by_id("cpd00029_e0").summary(solution = sol))
+print(model.metabolites.get_by_id("cpd00029_e0").summary(solution = sol))
 print("Fe2+  upper")
 print(model.metabolites.get_by_id("cpd10515_e0").summary(solution = sol))
 print("Fe3+  upper")
