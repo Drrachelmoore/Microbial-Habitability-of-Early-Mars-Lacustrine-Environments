@@ -34,6 +34,16 @@ print(model.summary(solution = solution))
 ### The following code will allow you to simulate the growth of the community model on upper bound media. It will print out the production and consumption reactions for all of the key metabolites involved in the Krebs cycle for _G. sulfurreducens_.
 ```
 import cobra
+from cobra import Configuration
+import random
+import numpy as np
+seed = 42
+random.seed(seed)
+np.random.seed(seed)
+
+Configuration().solver = "glpk"
+Configuration().tolerance = 1e-6
+
 model = cobra.io.read_sbml_model("path\\to\\model\\supplemental_file_1.xml")
 sol = model.optimize()
 
@@ -136,8 +146,7 @@ mediumlower = {
     'EX_cpd00009_e0': 0.00052,
     'EX_cpd00048_e0': 44,
     'EX_cpd00034_e0': 0.0001,
-    'EX_photon_e': 100.0,
-    'EX_cpd00023_e0': 0.1
+    'EX_photon_e': 100.0
 }
 model.medium = mediumlower
 sol = model.optimize()
@@ -219,6 +228,15 @@ from scipy.integrate import solve_ivp
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 import cobra
+from cobra import Configuration
+import random
+import numpy as np
+seed = 42
+random.seed(seed)
+np.random.seed(seed)
+
+Configuration().solver = "glpk"
+Configuration().tolerance = 1e-6
 
 model = cobra.io.read_sbml_model("path\\to\\model\\supplemental_file_1.xml")
 #Set media to upper or lower as above
