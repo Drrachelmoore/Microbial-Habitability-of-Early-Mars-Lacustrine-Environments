@@ -106,7 +106,7 @@ mediumupper = {
     'EX_cpd00048_e0': 72,
     'EX_cpd00034_e0': 0.0001,
     'EX_photon_e': 100.0,
-    'EX_cpd00023_e0: 0.1
+    'EX_cpd00023_e0': 0.1
 }
 
 
@@ -137,7 +137,7 @@ mediumlower = {
     'EX_cpd00048_e0': 44,
     'EX_cpd00034_e0': 0.0001,
     'EX_photon_e': 100.0,
-    'EX_cpd00023_e0: 0.1
+    'EX_cpd00023_e0': 0.1
 }
 model.medium = mediumlower
 sol = model.optimize()
