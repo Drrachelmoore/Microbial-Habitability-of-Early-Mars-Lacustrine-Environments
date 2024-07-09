@@ -222,7 +222,7 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 import cobra
 
-model = cobra.io.read_sbml_model("path\\to\\model\\**supplemental_file_1.xml**")
+model = cobra.io.read_sbml_model("path\\to\\model\\supplemental_file_1.xml")
 #Set media to upper or lower as above
 
 # Set media to upper bounds of Gale Lake with light
@@ -372,7 +372,7 @@ print(sol)
 ```
 import cobra
 
-model = cobra.io.read_sbml_model("path\\to\\model\\**supplemental_file_2.xml**") # Important to use diurnal model here
+model = cobra.io.read_sbml_model("path\\to\\model\\supplemental_file_2.xml") # Important to use diurnal model here
 
 mediumhigh = {
     'EX_cpd29674_e0': 45,
