@@ -174,7 +174,7 @@ print(sol)
 #<Solution 0.000 at 0x1da99d90ca0>
 ```
 ### Explore growth of community on 10,000 random media compositions (between defined upper and lower bounds, assuming constant light) 
-'''
+```
 import cobra
 from cobra import Configuration
 import numpy as np
@@ -314,8 +314,7 @@ plt.savefig('C:\\path\\to\\your\\fig.png', format='png', dpi=600) #Change this t
 
 # Show the plot
 plt.show()
-
-'''
+```
 
 ## Table 3 from the manuscript
 Table 3. Modeled interactions between community members. 
