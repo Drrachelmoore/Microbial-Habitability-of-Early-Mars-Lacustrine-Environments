@@ -173,6 +173,150 @@ print(sol)
 #<Solution 1.012 at 0x1da9a099780>
 #<Solution 0.000 at 0x1da99d90ca0>
 ```
+### Explore growth of community on 10,000 random media compositions (between defined upper and lower bounds, assuming constant light) 
+'''
+import cobra
+from cobra import Configuration
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from datetime import datetime
+import random
+
+# Configuration
+Configuration().solver = "glpk"
+Configuration().tolerance = 1e-7
+seed = 42
+random.seed(seed)
+np.random.seed(seed)
+
+#Load model
+model = cobra.io.read_sbml_model("C:\\path\\to\\supplemental_file_1.xml") #This is the community model (not diurnal)
+
+#Define media bounds ##Assumes constant light
+mediumupper = {
+    'EX_cpd29674_e0': 0.0045,
+    'EX_cpd00063_e0': 0.0045,
+    'EX_cpd00099_e0': 0.250,
+    'EX_cpd00149_e0': 0.0000059,
+    'EX_cpd00011_e0': 0.041,
+    'EX_cpd00058_e0': 0.0000001,
+    'EX_cpd10515_e0': 0.0058,
+    'EX_cpd00067_e0': 0.000001,
+    'EX_cpd11640_e0': 0.012,
+    'EX_cpd00001_e0': 1,
+    'EX_cpd00205_e0': 0.0044,
+    'EX_cpd00254_e0': 0.060,
+    'EX_cpd00030_e0': 0.0000100,
+    'EX_cpd00528_e0': 0.0130,
+    'EX_cpd00971_e0': 0.120,
+    'EX_cpd00009_e0': 0.0018000,
+    'EX_cpd00048_e0': 0.072,
+    'EX_cpd00034_e0': 0.0000001,
+    'EX_photon_e': 100.0,
+    'EX_cpd00023_e0': 0.1
+}
+
+mediumlower = {
+    'EX_cpd29674_e0': 0,
+    'EX_cpd00063_e0': 0,
+    'EX_cpd00099_e0': 0,
+    'EX_cpd00149_e0': 0,
+    'EX_cpd00011_e0': 0,
+    'EX_cpd00058_e0': 0,
+    'EX_cpd10515_e0': 0,
+    'EX_cpd00067_e0': 0,
+    'EX_cpd11640_e0': 0,
+    'EX_cpd00001_e0': 1,
+    'EX_cpd00205_e0': 0,
+    'EX_cpd00254_e0': 0,
+    'EX_cpd00030_e0': 0,
+    'EX_cpd00528_e0': 0,
+    'EX_cpd00971_e0': 0,
+    'EX_cpd00009_e0': 0,
+    'EX_cpd00048_e0': 0,
+    'EX_cpd00034_e0': 0,
+    'EX_photon_e': 100,
+    'EX_cpd00023_e0': 0
+}
+
+#Generate random samples of media components
+num_samples = 10000  #Number of samples
+media_samples = []
+for _ in range(num_samples):
+    sample = {key: np.random.uniform(mediumlower[key], mediumupper[key]) for key in mediumupper}
+    media_samples.append(sample)
+
+#Collect data for analysis
+results = []
+for sample in media_samples:
+    model.medium = sample
+    sol = model.optimize()
+    biomass_production = sol.objective_value  # Biomass production in gDW/L
+    if biomass_production > 0:  # Avoid non-growth conditions
+        consumption = 0
+        for ex_rxn in model.exchanges:
+            if sol.fluxes[ex_rxn.id] < 0:  # Consumed component
+                consumption -= sol.fluxes[ex_rxn.id]  # Sum of consumed fluxes
+        if consumption > 0:  # Avoid division by zero
+            yield_coefficient = biomass_production / consumption  # Biomass yield per unit of consumed media
+            cell_concentration = biomass_production / 1e-12 / 1000  # Convert biomass to cells/mL (arbitrary conversion factor)
+            results.append([yield_coefficient, cell_concentration])
+
+#Convert results to a DataFrame for visualization
+results_df = pd.DataFrame(results, columns=['yield_coefficient', 'cells_per_mL'])
+
+#Logarithmic bins for 2D histogram
+X = results_df['yield_coefficient']
+Y = results_df['cells_per_mL']
+
+# Check the range of values for log-scaling
+x_min, x_max = 1e-5, X.max()
+y_min, y_max = 1e3, 5e6
+
+# Create 2D histogram with logarithmic bins
+bins = 100
+heatmap, xedges, yedges = np.histogram2d(X, Y, bins=[np.logspace(np.log10(x_min), np.log10(x_max), bins),
+                                                     np.logspace(np.log10(y_min), np.log10(y_max), bins)])
+
+# Plot heatmap
+fig = plt.figure(figsize=(10, 6))
+ax = fig.add_subplot(111)
+
+# Display heatmap with pcolormesh
+c = ax.pcolormesh(xedges, yedges, heatmap.T, shading='auto')
+
+# Set the plot to log-log scale
+ax.set_xscale('log')
+ax.set_yscale('log')
+
+# Set axis limits to permanently fix lower limits for x and y
+ax.set_xlim(1e-5, x_max)
+ax.set_ylim(1e3, 5e6)
+
+# Add color bar
+fig.colorbar(c, ax=ax)
+
+# Add axis labels and title
+ax.set_xlabel('Yield Coefficient (mass biomass produced / mass media consumed; unitless)')
+ax.set_ylabel('Cells mL$^{-1}$')
+ax.set_title('Yield Coefficient vs. Cells per mL')
+
+
+plt.axhline(1e6, color='blue', linestyle='--', label='Average abundance in terrestrial lakes (Cole et al. 1993 and others)')
+plt.axhline(1e5, color='green', linestyle='-', label='Subglacial Lake Whillans (Christner et al. 2014)')
+plt.axhline(2e4, color='red', linestyle='dotted', label='Mercer Subglacial Lake (Davis et al. 2022)')
+plt.legend(loc='lower left')
+
+# Optionally, save the plot
+plt.savefig('C:\\path\\to\\your\\fig.png', format='png', dpi=600) #Change this to where you'd like to save
+
+
+# Show the plot
+plt.show()
+
+'''
+
 ## Table 3 from the manuscript
 Table 3. Modeled interactions between community members. 
 |Metabolite| _R. palustris_ (reaction ID) |_G. sulfurreducens_ (reaction ID) | 
